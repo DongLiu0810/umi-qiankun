@@ -42,7 +42,7 @@ const dataType = (data: any) => {
 
 // 判断是否为空
 const isEmpty = (obj: any) => {
-  let type = dataType(obj);
+  const type = dataType(obj);
   if (type === 'boolean') return false;
   if (type === 'string') return obj.length === 0;
   if (type === 'number') return false;
@@ -158,6 +158,18 @@ export const downLoad = (url: string, params: any) => {
   //   }),
   // );
 };
+
+//下载文件流
+export const downLoadFile = async (url: string, params: any) => {
+  const options: any = {
+    getResponse: true,
+    method: 'get',
+    params: params,
+    responseType: 'blob',
+  };
+  console.log(await request(url, options), '===');
+  return request(url, options);
+};
 // 获取颜色变化点位
 export const getPercent = (rangeLimit: any, value: number) => {
   if (value < rangeLimit.min) return 0;
@@ -184,14 +196,4 @@ export const strCut = (data: string, startOffset = 15, endOffset = 8) => {
   );
 };
 
-//下载文件
-export const downLoadFile = async (url: string, params: any) => {
-  const options: any = {
-    getResponse: true,
-    method: 'get',
-    params: params,
-    responseType: 'blob',
-  };
-  console.log(await request(url, options), '===');
-  return request(url, options);
-};
+
